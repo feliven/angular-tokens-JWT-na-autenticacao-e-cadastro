@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -30,6 +31,7 @@ import { DropdownUfComponent } from './dropdown-uf/dropdown-uf.component';
     DropdownUfComponent,
     MatFormFieldModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatInputModule,
   ],
 })
