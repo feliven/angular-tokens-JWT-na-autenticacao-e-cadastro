@@ -6,117 +6,149 @@
       </mat-card-header>
       <form [formGroup]="formBase">
         <mat-card-content>
-          <mat-form-field appearance="outline">
-            <mat-label> Nome </mat-label>
-            <input
-              matInput
-              type="text"
-              id="nome"
-              formControlName="nome"
-              placeholder="Digite seu nome"
-            />
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label> Data de nascimento </mat-label>
-            <input
-              matInput
-              type="date"
-              id="dataNascimento"
-              formControlName="dataNascimento"
-              placeholder="Digite sua data de nascimento"
-            />
-          </mat-form-field>
-
-          <div class="radio-group-wrapper">
-            <label> Gênero </label>
-            <mat-radio-group [formControl]="generoControl">
-              @for (genero of generos; track $index) {
-                <mat-radio-button [value]="genero">{{
-                  genero.nome
-                }}</mat-radio-button>
+          <div class="linha-formulario linha-nome">
+            <mat-form-field appearance="outline">
+              <mat-label> Nome </mat-label>
+              <input
+                matInput
+                type="text"
+                id="nome"
+                formControlName="nome"
+                placeholder="Digite seu nome"
+              />
+              @if (formBase.get("nome")) {
+                <button
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="formBase.get('nome')?.patchValue('')"
+                >
+                  <mat-icon>highlight_off</mat-icon>
+                </button>
               }
-            </mat-radio-group>
+            </mat-form-field>
           </div>
 
-          <mat-form-field appearance="outline">
-            <mat-label> CPF </mat-label>
-            <input
-              matInput
-              type="text"
-              id="cpf"
-              formControlName="cpf"
-              placeholder="Digite seu CPF"
-            />
-          </mat-form-field>
+          <div class="linha-formulario">
+            <mat-form-field appearance="outline">
+              <mat-label> Data de nascimento </mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                type="date"
+                id="dataNascimento"
+                formControlName="dataNascimento"
+                placeholder="Digite sua data de nascimento"
+              />
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label> Telefone </mat-label>
-            <input
-              matInput
-              type="text"
-              id="telefone"
-              formControlName="telefone"
-              placeholder="Digite seu telefone"
-          /></mat-form-field>
+            <div class="radio-group-wrapper">
+              <mat-label> Gênero </mat-label>
+              <mat-radio-group [formControl]="generoControl">
+                @for (genero of generos; track $index) {
+                  <div class="radio-button-wrapper">
+                    <mat-radio-button
+                      [value]="genero"
+                      color="primary"
+                    ></mat-radio-button>
+                    <span>{{ genero.nome }}</span>
+                  </div>
+                }
+              </mat-radio-group>
+            </div>
+          </div>
 
-          <mat-form-field appearance="outline">
-            <mat-label> Cidade </mat-label>
-            <input
-              matInput
-              type="text"
-              id="cidade"
-              formControlName="cidade"
-              placeholder="Digite sua cidade"
-            />
-          </mat-form-field>
+          <div class="linha-formulario">
+            <mat-form-field appearance="outline">
+              <mat-label> CPF </mat-label>
+              <input
+                matInput
+                type="number"
+                id="cpf"
+                formControlName="cpf"
+                placeholder="Digite seu CPF"
+              />
+            </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Estado</mat-label>
-            <mat-select [formControl]="estadoControl" required>
-              @for (estado of listaEstados; track estado.id) {
-                <mat-option [value]="estado">{{ estado.nome }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label> Telefone </mat-label>
+              <input
+                matInput
+                type="number"
+                id="telefone"
+                formControlName="telefone"
+                placeholder="Digite seu telefone"
+            /></mat-form-field>
+          </div>
 
-          <mat-form-field appearance="outline">
-            <mat-label> E-mail </mat-label>
-            <input
-              matInput
-              type="email"
-              id="email"
-              formControlName="email"
-              placeholder="Digite seu e-mail"
-          /></mat-form-field>
+          <div class="linha-formulario">
+            <mat-form-field appearance="outline">
+              <mat-label> Cidade </mat-label>
+              <input
+                matInput
+                type="text"
+                id="cidade"
+                formControlName="cidade"
+                placeholder="Digite sua cidade"
+              />
+            </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label> Confirmar e-mail </mat-label>
-            <input
-              matInput
-              type="email"
-              placeholder="Digite seu e-mail novamente"
-          /></mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Estado</mat-label>
+              <mat-select [formControl]="estadoControl">
+                @for (estado of listaEstados; track estado.id) {
+                  <mat-option [value]="estado">{{ estado.nome }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
 
-          <mat-form-field appearance="outline">
-            <mat-label> Senha </mat-label>
-            <input
-              matInput
-              type="password"
-              id="senha"
-              formControlName="senha"
-              placeholder="Digite sua senha"
-            />
-          </mat-form-field>
+          <div class="linha-formulario">
+            <mat-form-field appearance="outline">
+              <mat-label> E-mail </mat-label>
+              <input
+                matInput
+                type="email"
+                id="email"
+                formControlName="email"
+                placeholder="Digite seu e-mail"
+            /></mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label> Confirmar senha </mat-label>
-            <input
-              matInput
-              type="password"
-              placeholder="Digite sua senha novamente"
-            />
-          </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label> Confirmar e-mail </mat-label>
+              <input
+                matInput
+                type="email"
+                placeholder="Digite seu e-mail novamente"
+            /></mat-form-field>
+          </div>
+
+          <div class="linha-formulario">
+            <mat-form-field appearance="outline">
+              <mat-label> Senha </mat-label>
+              <input
+                matInput
+                type="password"
+                id="senha"
+                formControlName="senha"
+                placeholder="Digite sua senha"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label> Confirmar senha </mat-label>
+              <input
+                matInput
+                type="password"
+                placeholder="Digite sua senha novamente"
+              />
+            </mat-form-field>
+          </div>
         </mat-card-content>
         <mat-card-actions>
           <button mat-flat-button color="primary" [disabled]="formBase.invalid">

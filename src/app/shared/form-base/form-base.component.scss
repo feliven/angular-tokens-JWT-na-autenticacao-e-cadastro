@@ -1,24 +1,30 @@
+$largura: 38rem;
+
 .form-base-component {
-  max-width: 50%;
+  width: $largura;
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
 
   .form-base {
-    display: flex;
-    flex-direction: row;
+    width: $largura;
+    display: block;
     justify-content: center;
     margin-top: 68px;
   }
 
   .form-container {
+    width: $largura;
     display: flex;
     flex-direction: column;
     padding-bottom: 16px;
+    justify-self: center;
+    overflow-x: hidden;
 
     mat-card-header {
       margin-bottom: 24px;
+      align-self: center;
 
       mat-card-title {
         font-size: 32px;
@@ -27,9 +33,45 @@
     }
 
     mat-card-content {
+      width: $largura;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      justify-self: center;
+
+      .linha-formulario {
+        display: flex;
+        gap: 20px;
+        width: $largura;
+      }
+
+      .linha-nome {
+        margin-bottom: 0.75rem;
+      }
+
+      mat-form-field,
+      .radio-group-wrapper {
+        flex: 1;
+      }
+
+      .radio-group-wrapper {
+        margin-top: -1.5rem;
+        margin-bottom: 1.5rem;
+        mat-radio-group {
+          display: flex;
+          gap: 16px;
+          justify-content: space-around;
+
+          .radio-button-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            span {
+              font-size: 14px;
+            }
+          }
+        }
+      }
     }
 
     mat-card-actions {

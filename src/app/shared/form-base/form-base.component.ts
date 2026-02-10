@@ -1,4 +1,10 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  OnInit,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -12,8 +18,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
+
 import { UnidadeFederativaService } from 'src/app/core/services/unidade-federativa.service';
 import { UnidadeFederativa } from 'src/app/core/types/type';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-form-base',
@@ -25,9 +35,13 @@ import { UnidadeFederativa } from 'src/app/core/types/type';
     MatButtonModule,
     MatRadioModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatIconModule,
   ],
   templateUrl: './form-base.component.html',
   styleUrl: './form-base.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [provideNativeDateAdapter()],
 })
 export class FormBaseComponent implements OnInit {
   titulo = input('Crie sua conta');
@@ -74,6 +88,7 @@ export class FormBaseComponent implements OnInit {
     });
 
     this.printGenero();
+    this.printFormBase();
   }
 
   printGenero() {
@@ -83,5 +98,9 @@ export class FormBaseComponent implements OnInit {
 
       console.log('nome', nome, 'valor', valor);
     });
+  }
+
+  printFormBase() {
+    this.formBase.valueChanges.subscribe((form) => console.log(form));
   }
 }
