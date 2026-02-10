@@ -38,7 +38,7 @@ export class DropdownUfComponent implements OnInit {
   constructor(private unidadeFederativaService: UnidadeFederativaService) {}
 
   ngOnInit(): void {
-    this.unidadeFederativaService.listar().subscribe((dados) => {
+    this.unidadeFederativaService.listarEstados().subscribe((dados) => {
       this.unidadesFederativas = dados;
       console.log(this.unidadesFederativas);
     });
