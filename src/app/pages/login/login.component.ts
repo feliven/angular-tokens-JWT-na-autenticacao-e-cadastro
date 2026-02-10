@@ -26,13 +26,17 @@ import {
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  formulario!: FormGroup;
+  loginForm!: FormGroup;
   private formBuilder = inject(FormBuilder);
 
   ngOnInit(): void {
-    this.formulario = this.formBuilder.group({
+    this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(6)]],
+      senha: ['', [Validators.required, Validators.minLength(3)]],
     });
+  }
+
+  login() {
+    console.log('Login realizado com sucesso', this.loginForm.value);
   }
 }
