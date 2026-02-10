@@ -59,7 +59,13 @@
           </mat-form-field>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-flat-button color="primary">ACESSAR MINHA CONTA</button>
+          <button
+            mat-flat-button
+            color="primary"
+            [disabled]="loginForm.invalid"
+          >
+            ACESSAR MINHA CONTA
+          </button>
         </mat-card-actions>
         <p>
           Ainda não possui conta?

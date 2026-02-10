@@ -1,17 +1,19 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { BannerComponent } from 'src/app/shared/banner/banner.component';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+
+import { BannerComponent } from 'src/app/shared/banner/banner.component';
 import { AutenticacaoService } from '../../core/services/autenticacao.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -29,9 +31,9 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  private router = inject(Router);
   private formBuilder = inject(FormBuilder);
   private authService = inject(AutenticacaoService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
