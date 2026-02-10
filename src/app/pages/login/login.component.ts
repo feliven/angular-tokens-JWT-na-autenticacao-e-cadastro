@@ -10,6 +10,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AutenticacaoService } from '../../core/services/autenticacao.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +29,9 @@ import {
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  private router = inject(Router);
   private formBuilder = inject(FormBuilder);
+  private authService = inject(AutenticacaoService);
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -37,6 +41,17 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log('Login realizado com sucesso', this.loginForm.value);
+    const email = this.loginForm.value.email;
+    const senha = this.loginForm.value.senha;
+
+    this.authService.autenticar(email, senha).subscribe({
+      next: (valor) => {
+        console.log('Login realizado com sucesso', valor);
+        this.router.navigateByUrl('/');
+      },
+      error: (erro) => {
+        console.log('Erro no login', erro);
+      },
+    });
   }
 }
