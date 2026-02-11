@@ -4,6 +4,7 @@ import {
   inject,
   input,
   OnInit,
+  output,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -52,6 +53,7 @@ export class FormBaseComponent implements OnInit {
   titulo = input('');
   nomeBotao = input('');
   meuPerfil = input(true);
+  submitClicado = output<void>();
 
   formBase!: FormGroup;
   private formBuilder = inject(FormBuilder);
@@ -103,5 +105,9 @@ export class FormBaseComponent implements OnInit {
       console.log(form);
       console.log(form.dataNascimento.toISOString().split('T')[0]);
     });
+  }
+
+  onSubmit() {
+    this.submitClicado.emit();
   }
 }

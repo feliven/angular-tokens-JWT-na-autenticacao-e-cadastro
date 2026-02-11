@@ -260,7 +260,12 @@
           </div>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-flat-button color="primary" [disabled]="formBase.invalid">
+          <button
+            mat-flat-button
+            color="primary"
+            [disabled]="formBase.invalid"
+            (click)="onSubmit()"
+          >
             {{ nomeBotao() }}
           </button>
         </mat-card-actions>
