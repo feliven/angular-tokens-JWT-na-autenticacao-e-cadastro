@@ -2,9 +2,11 @@
   <mat-card class="form-base">
     <div class="form-container">
       <mat-card-header>
-        <a mat-stroked-button href="#" color="primary"
-          ><mat-icon>logout</mat-icon>DESLOGAR</a
-        >
+        @if (meuPerfil()) {
+          <a mat-stroked-button href="#" color="primary"
+            ><mat-icon>logout</mat-icon>DESLOGAR</a
+          >
+        }
         <mat-card-title>{{ titulo() }}</mat-card-title>
       </mat-card-header>
       <form [formGroup]="formBase">
@@ -158,9 +160,11 @@
             </mat-form-field>
           </div>
 
-          <mat-divider></mat-divider>
+          @if (meuPerfil()) {
+            <mat-divider></mat-divider>
 
-          <h2>Dados de acesso</h2>
+            <h2>Dados de acesso</h2>
+          }
 
           <div class="linha-formulario">
             <mat-form-field appearance="outline">

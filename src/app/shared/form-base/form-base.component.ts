@@ -49,8 +49,10 @@ import { ContainerComponent } from '../container/container.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormBaseComponent implements OnInit {
-  titulo = input('Crie sua conta');
-  nomeBotao = input('Criar minha conta');
+  titulo = input('');
+  nomeBotao = input('');
+  meuPerfil = input(true);
+
   formBase!: FormGroup;
   private formBuilder = inject(FormBuilder);
   private ufService = inject(UnidadeFederativaService);
