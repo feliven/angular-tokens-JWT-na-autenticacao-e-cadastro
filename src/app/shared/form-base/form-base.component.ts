@@ -53,10 +53,7 @@ export class FormBaseComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private ufService = inject(UnidadeFederativaService);
 
-  generoControl = new FormControl(
-    { nome: 'Não informar', valor: 'naoInformar' },
-    Validators.required,
-  );
+  generoControl = new FormControl(null, Validators.required);
   generos = [
     { nome: 'Feminino', valor: 'feminino' },
     { nome: 'Masculino', valor: 'masculino' },

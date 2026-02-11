@@ -13,6 +13,10 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+mat-error {
+  font-size: 12px;
+}
+
 .form-base-component {
   width: $largura;
   overflow-y: hidden;

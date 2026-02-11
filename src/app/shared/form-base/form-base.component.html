@@ -73,6 +73,12 @@
                   </div>
                 }
               </mat-radio-group>
+              @if (
+                formBase.get("genero")?.hasError("required") &&
+                formBase.get("genero")?.touched
+              ) {
+                <mat-error>Escolha uma opção.</mat-error>
+              }
             </div>
           </div>
 
@@ -139,6 +145,12 @@
                   <mat-option [value]="estado">{{ estado.nome }}</mat-option>
                 }
               </mat-select>
+              @if (
+                formBase.get("estado")?.hasError("required") &&
+                formBase.get("estado")?.touched
+              ) {
+                <mat-error>Estado é obrigatório.</mat-error>
+              }
             </mat-form-field>
           </div>
 
