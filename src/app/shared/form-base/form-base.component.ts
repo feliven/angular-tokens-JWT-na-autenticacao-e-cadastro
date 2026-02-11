@@ -22,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { UnidadeFederativaService } from 'src/app/core/services/unidade-federativa.service';
 import { UnidadeFederativa } from 'src/app/core/types/type';
@@ -30,6 +31,7 @@ import { ContainerComponent } from '../container/container.component';
 @Component({
   selector: 'app-form-base',
   imports: [
+    ContainerComponent,
     ReactiveFormsModule,
     MatCardModule,
     MatFormFieldModule,
@@ -40,7 +42,7 @@ import { ContainerComponent } from '../container/container.component';
     MatDatepickerModule,
     MatIconModule,
     MatNativeDateModule,
-    ContainerComponent,
+    MatDividerModule,
   ],
   templateUrl: './form-base.component.html',
   styleUrl: './form-base.component.scss',

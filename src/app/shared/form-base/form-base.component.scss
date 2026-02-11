@@ -17,6 +17,10 @@ mat-error {
   font-size: 12px;
 }
 
+mat-divider {
+  margin-bottom: 1.25rem;
+}
+
 .form-base-component {
   width: $largura;
   overflow-y: hidden;
@@ -41,7 +45,8 @@ mat-error {
 
     mat-card-header {
       margin-bottom: 24px;
-      align-self: center;
+      justify-content: space-between;
+      padding: 0 0 0 0;
 
       mat-card-title {
         font-size: 32px;
