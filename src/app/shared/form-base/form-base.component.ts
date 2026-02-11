@@ -57,22 +57,18 @@ export class FormBaseComponent implements OnInit {
     { nome: 'Não informar', valor: 'naoInformar' },
   ];
 
-  estadoControl = new FormControl<UnidadeFederativa>({
-    id: 0,
-    nome: '',
-    sigla: '',
-  });
+  estadoControl = new FormControl<UnidadeFederativa | null>(null);
   listaEstados: UnidadeFederativa[] = [];
 
   ngOnInit(): void {
     this.formBase = this.formBuilder.group({
       nome: [''],
       dataNascimento: [new Date()],
-      genero: [''],
+      genero: this.generoControl,
       cpf: [''],
       telefone: [''],
       cidade: [''],
-      estado: [''],
+      estado: this.estadoControl,
       email: [''],
       senha: [''],
     });
@@ -87,17 +83,7 @@ export class FormBaseComponent implements OnInit {
       },
     });
 
-    this.printGenero();
     this.printFormBase();
-  }
-
-  printGenero() {
-    this.generoControl.valueChanges.subscribe((genero) => {
-      const nome = genero?.nome;
-      const valor = genero?.valor;
-
-      console.log('nome', nome, 'valor', valor);
-    });
   }
 
   printFormBase() {

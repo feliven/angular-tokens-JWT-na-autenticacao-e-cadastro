@@ -16,7 +16,7 @@
                 formControlName="nome"
                 placeholder="Digite seu nome"
               />
-              @if (formBase.get("nome")) {
+              @if (formBase.get("nome")?.value) {
                 <button
                   matSuffix
                   mat-icon-button
