@@ -18,12 +18,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { UnidadeFederativaService } from 'src/app/core/services/unidade-federativa.service';
 import { UnidadeFederativa } from 'src/app/core/types/type';
-import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-form-base',
@@ -37,11 +37,11 @@ import { MatIconModule } from '@angular/material/icon';
     MatSelectModule,
     MatDatepickerModule,
     MatIconModule,
+    MatNativeDateModule,
   ],
   templateUrl: './form-base.component.html',
   styleUrl: './form-base.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [provideNativeDateAdapter()],
 })
 export class FormBaseComponent implements OnInit {
   titulo = input('Crie sua conta');
@@ -63,7 +63,7 @@ export class FormBaseComponent implements OnInit {
   ngOnInit(): void {
     this.formBase = this.formBuilder.group({
       nome: [''],
-      dataNascimento: [new Date()],
+      dataNascimento: [''],
       genero: this.generoControl,
       cpf: [''],
       telefone: [''],
@@ -87,6 +87,9 @@ export class FormBaseComponent implements OnInit {
   }
 
   printFormBase() {
-    this.formBase.valueChanges.subscribe((form) => console.log(form));
+    this.formBase.valueChanges.subscribe((form) => {
+      console.log(form);
+      console.log(form.dataNascimento.toISOString().split('T')[0]);
+    });
   }
 }
