@@ -1,4 +1,4 @@
-<section class="form-base-component">
+<app-container class="form-base-component">
   <mat-card class="form-base">
     <div class="form-container">
       <mat-card-header>
@@ -15,6 +15,7 @@
                 id="nome"
                 formControlName="nome"
                 placeholder="Digite seu nome"
+                autocomplete="name"
               />
               @if (formBase.get("nome")?.value) {
                 <button
@@ -25,6 +26,12 @@
                 >
                   <mat-icon>highlight_off</mat-icon>
                 </button>
+              }
+              @if (
+                formBase.get("nome")?.hasError("required") &&
+                formBase.get("nome")?.touched
+              ) {
+                <mat-error>Nome é obrigatório.</mat-error>
               }
             </mat-form-field>
           </div>
@@ -45,6 +52,12 @@
                 [for]="picker"
               ></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
+              @if (
+                formBase.get("dataNascimento")?.hasError("required") &&
+                formBase.get("dataNascimento")?.touched
+              ) {
+                <mat-error>Data de nascimento é obrigatória.</mat-error>
+              }
             </mat-form-field>
 
             <div class="radio-group-wrapper">
@@ -73,6 +86,12 @@
                 formControlName="cpf"
                 placeholder="Digite seu CPF"
               />
+              @if (
+                formBase.get("cpf")?.hasError("required") &&
+                formBase.get("cpf")?.touched
+              ) {
+                <mat-error>CPF é obrigatório.</mat-error>
+              }
             </mat-form-field>
 
             <mat-form-field appearance="outline">
@@ -83,7 +102,15 @@
                 id="telefone"
                 formControlName="telefone"
                 placeholder="Digite seu telefone"
-            /></mat-form-field>
+                autocomplete="tel-national"
+              />
+              @if (
+                formBase.get("telefone")?.hasError("required") &&
+                formBase.get("telefone")?.touched
+              ) {
+                <mat-error>Telefone é obrigatório.</mat-error>
+              }
+            </mat-form-field>
           </div>
 
           <div class="linha-formulario">
@@ -95,7 +122,14 @@
                 id="cidade"
                 formControlName="cidade"
                 placeholder="Digite sua cidade"
+                autocomplete="address-level2"
               />
+              @if (
+                formBase.get("cidade")?.hasError &&
+                formBase.get("cidade")?.touched
+              ) {
+                <mat-error>Cidade é obrigatória.</mat-error>
+              }
             </mat-form-field>
 
             <mat-form-field appearance="outline">
@@ -117,15 +151,42 @@
                 id="email"
                 formControlName="email"
                 placeholder="Digite seu e-mail"
-            /></mat-form-field>
+                autocomplete="email"
+              />
+              @if (
+                formBase.get("email")?.hasError("required") &&
+                formBase.get("email")?.touched
+              ) {
+                <mat-error>E-mail é obrigatório.</mat-error>
+              } @else if (
+                formBase.get("email")?.hasError("email") &&
+                formBase.get("email")?.touched
+              ) {
+                <mat-error>Formato inválido de e-mail.</mat-error>
+              }
+            </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label> Confirmar e-mail </mat-label>
               <input
                 matInput
                 type="email"
+                id="confirmarEmail"
+                formControlName="confirmarEmail"
                 placeholder="Digite seu e-mail novamente"
-            /></mat-form-field>
+              />
+              @if (
+                formBase.get("confirmarEmail")?.hasError("required") &&
+                formBase.get("confirmarEmail")?.touched
+              ) {
+                <mat-error>Confirme seu e-mail.</mat-error>
+              } @else if (
+                formBase.get("confirmarEmail")?.hasError("email") &&
+                formBase.get("confirmarEmail")?.touched
+              ) {
+                <mat-error>Formato inválido de e-mail.</mat-error>
+              }
+            </mat-form-field>
           </div>
 
           <div class="linha-formulario">
@@ -138,6 +199,17 @@
                 formControlName="senha"
                 placeholder="Digite sua senha"
               />
+              @if (
+                formBase.get("senha")?.hasError("required") &&
+                formBase.get("senha")?.touched
+              ) {
+                <mat-error>Senha é obrigatória.</mat-error>
+              } @else if (
+                formBase.get("senha")?.hasError("minlength") &&
+                formBase.get("senha")?.touched
+              ) {
+                <mat-error>Senha deve ter no mínimo 3 caracteres.</mat-error>
+              }
             </mat-form-field>
 
             <mat-form-field appearance="outline">
@@ -145,8 +217,21 @@
               <input
                 matInput
                 type="password"
+                id="confirmarSenha"
+                formControlName="confirmarSenha"
                 placeholder="Digite sua senha novamente"
               />
+              @if (
+                formBase.get("confirmarSenha")?.hasError("required") &&
+                formBase.get("confirmarSenha")?.touched
+              ) {
+                <mat-error>Confirme sua senha.</mat-error>
+              } @else if (
+                formBase.get("confirmarSenha")?.hasError("minlength") &&
+                formBase.get("confirmarSenha")?.touched
+              ) {
+                <mat-error>Senha deve ter no mínimo 3 caracteres.</mat-error>
+              }
             </mat-form-field>
           </div>
         </mat-card-content>
@@ -158,4 +243,4 @@
       </form>
     </div>
   </mat-card>
-</section>
+</app-container>

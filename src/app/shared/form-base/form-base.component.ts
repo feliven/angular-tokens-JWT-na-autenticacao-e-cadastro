@@ -10,6 +10,7 @@ import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 
 import { MatCardModule } from '@angular/material/card';
@@ -24,6 +25,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 import { UnidadeFederativaService } from 'src/app/core/services/unidade-federativa.service';
 import { UnidadeFederativa } from 'src/app/core/types/type';
+import { ContainerComponent } from '../container/container.component';
 
 @Component({
   selector: 'app-form-base',
@@ -38,6 +40,7 @@ import { UnidadeFederativa } from 'src/app/core/types/type';
     MatDatepickerModule,
     MatIconModule,
     MatNativeDateModule,
+    ContainerComponent,
   ],
   templateUrl: './form-base.component.html',
   styleUrl: './form-base.component.scss',
@@ -50,27 +53,35 @@ export class FormBaseComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private ufService = inject(UnidadeFederativaService);
 
-  generoControl = new FormControl({ nome: '', valor: '' });
+  generoControl = new FormControl(
+    { nome: 'Não informar', valor: 'naoInformar' },
+    Validators.required,
+  );
   generos = [
     { nome: 'Feminino', valor: 'feminino' },
     { nome: 'Masculino', valor: 'masculino' },
     { nome: 'Não informar', valor: 'naoInformar' },
   ];
 
-  estadoControl = new FormControl<UnidadeFederativa | null>(null);
+  estadoControl = new FormControl<UnidadeFederativa | null>(
+    null,
+    Validators.required,
+  );
   listaEstados: UnidadeFederativa[] = [];
 
   ngOnInit(): void {
     this.formBase = this.formBuilder.group({
-      nome: [''],
-      dataNascimento: [''],
+      nome: ['', Validators.required],
+      dataNascimento: ['', Validators.required],
       genero: this.generoControl,
-      cpf: [''],
-      telefone: [''],
-      cidade: [''],
+      cpf: ['', Validators.required],
+      telefone: ['', Validators.required],
+      cidade: ['', Validators.required],
       estado: this.estadoControl,
-      email: [''],
-      senha: [''],
+      email: ['', [Validators.required, Validators.email]],
+      senha: ['', [Validators.required, Validators.minLength(3)]],
+      confirmarEmail: ['', [Validators.required, Validators.email]],
+      confirmarSenha: ['', [Validators.required, Validators.minLength(3)]],
     });
 
     this.ufService.listarEstados().subscribe({
