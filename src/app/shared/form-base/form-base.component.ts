@@ -28,6 +28,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { UnidadeFederativaService } from 'src/app/core/services/unidade-federativa.service';
 import { UnidadeFederativa } from 'src/app/core/types/type';
 import { ContainerComponent } from '../container/container.component';
+import { FormularioService } from 'src/app/core/services/formulario.service';
 
 @Component({
   selector: 'app-form-base',
@@ -58,6 +59,7 @@ export class FormBaseComponent implements OnInit {
   formBase!: FormGroup;
   private formBuilder = inject(FormBuilder);
   private ufService = inject(UnidadeFederativaService);
+  private formularioService = inject(FormularioService);
 
   generoControl = new FormControl(null, Validators.required);
   generos = [
@@ -87,23 +89,21 @@ export class FormBaseComponent implements OnInit {
       confirmarSenha: ['', [Validators.required, Validators.minLength(3)]],
     });
 
+    this.formularioService.setCadastro(this.formBase);
+
     this.ufService.listarEstados().subscribe({
       next: (estados) => {
         estados.forEach((estado) => this.listaEstados.push(estado));
-        console.log(this.listaEstados);
       },
       error: (erro) => {
         console.error('Erro', erro);
       },
     });
-
-    this.printFormBase();
   }
 
   printFormBase() {
     this.formBase.valueChanges.subscribe((form) => {
       console.log(form);
-      console.log(form.dataNascimento.toISOString().split('T')[0]);
     });
   }
 
