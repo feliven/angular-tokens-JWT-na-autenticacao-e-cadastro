@@ -29,6 +29,7 @@ import { UnidadeFederativaService } from 'src/app/core/services/unidade-federati
 import { UnidadeFederativa } from 'src/app/core/types/type';
 import { ContainerComponent } from '../container/container.component';
 import { FormularioService } from 'src/app/core/services/formulario.service';
+import { FormValidations } from 'src/app/core/validators/form-validators';
 
 @Component({
   selector: 'app-form-base',
@@ -61,12 +62,12 @@ export class FormBaseComponent implements OnInit {
   private ufService = inject(UnidadeFederativaService);
   private formularioService = inject(FormularioService);
 
-  generoControl = new FormControl(null, Validators.required);
   generos = [
     { nome: 'Feminino', valor: 'feminino' },
     { nome: 'Masculino', valor: 'masculino' },
     { nome: 'Não informar', valor: 'naoInformar' },
   ];
+  generoControl = new FormControl(this.generos[0], Validators.required);
 
   estadoControl = new FormControl<UnidadeFederativa | null>(
     null,
@@ -76,17 +77,34 @@ export class FormBaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.formBase = this.formBuilder.group({
-      nome: ['', Validators.required],
-      dataNascimento: ['', Validators.required],
+      nome: ['drerewe', Validators.required],
+      dataNascimento: [
+        new Date('1990-1-2').toISOString().split('T')[0],
+        Validators.required,
+      ],
       genero: this.generoControl,
-      cpf: ['', Validators.required],
-      telefone: ['', Validators.required],
-      cidade: ['', Validators.required],
+      cpf: ['3213123', Validators.required],
+      telefone: ['26887667', Validators.required],
+      cidade: ['dfsfds', Validators.required],
       estado: this.estadoControl,
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(3)]],
-      confirmarEmail: ['', [Validators.required, Validators.email]],
-      confirmarSenha: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['a@b', [Validators.required, Validators.email]],
+      senha: ['111', [Validators.required, Validators.minLength(3)]],
+      confirmarEmail: [
+        'a@c',
+        [
+          Validators.required,
+          Validators.email,
+          FormValidations.ehIgual('email'),
+        ],
+      ],
+      confirmarSenha: [
+        '222',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          FormValidations.ehIgual('senha'),
+        ],
+      ],
     });
 
     this.formularioService.setCadastro(this.formBase);
@@ -94,6 +112,7 @@ export class FormBaseComponent implements OnInit {
     this.ufService.listarEstados().subscribe({
       next: (estados) => {
         estados.forEach((estado) => this.listaEstados.push(estado));
+        this.estadoControl.setValue(this.listaEstados[5]);
       },
       error: (erro) => {
         console.error('Erro', erro);

@@ -7,7 +7,7 @@ export class FormValidations {
       const valorOutroCampo = control.root.get(outroCampo)?.value;
 
       if (valorCampo !== valorOutroCampo) {
-        return { ehIgual: false };
+        return { ehIgual: true };
       } else {
         return null;
       }

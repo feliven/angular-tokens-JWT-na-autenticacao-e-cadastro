@@ -209,6 +209,11 @@
                 formBase.get("confirmarEmail")?.touched
               ) {
                 <mat-error>Formato inválido de e-mail.</mat-error>
+              } @else if (
+                formBase.get("confirmarEmail")?.hasError("ehIgual") &&
+                formBase.get("confirmarEmail")?.touched
+              ) {
+                <mat-error>E-mails não batem.</mat-error>
               }
             </mat-form-field>
           </div>
@@ -255,6 +260,11 @@
                 formBase.get("confirmarSenha")?.touched
               ) {
                 <mat-error>Senha deve ter no mínimo 3 caracteres.</mat-error>
+              } @else if (
+                formBase.get("confirmarSenha")?.hasError("ehIgual") &&
+                formBase.get("confirmarSenha")?.touched
+              ) {
+                <mat-error>As senhas estão diferentes.</mat-error>
               }
             </mat-form-field>
           </div>
