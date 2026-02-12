@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { testeClasseInimigo } from 'src/app/core/validators/teste';
 
 @Component({
   selector: 'app-banner',
@@ -6,7 +7,11 @@ import { Component, Input } from '@angular/core';
   templateUrl: './banner.component.html',
   styleUrls: ['./banner.component.scss'],
 })
-export class BannerComponent {
+export class BannerComponent implements OnInit {
   @Input() src: string = '';
   @Input() alt: string = '';
+
+  ngOnInit(): void {
+    testeClasseInimigo();
+  }
 }
