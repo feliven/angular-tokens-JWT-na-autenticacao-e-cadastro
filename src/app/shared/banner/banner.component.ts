@@ -12,6 +12,6 @@ export class BannerComponent implements OnInit {
   @Input() alt: string = '';
 
   ngOnInit(): void {
-    testeClasseInimigo();
+    // testeClasseInimigo();
   }
 }
