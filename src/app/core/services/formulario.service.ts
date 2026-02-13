@@ -42,4 +42,8 @@ export class FormularioService {
       console.log('resposta da API para cadastro:', res);
     });
   }
+
+  patchCadastro() {
+    //
+  }
 }

@@ -1,0 +1,12 @@
+<app-banner
+  src="/assets/imagens/banner-perfil.png"
+  alt="banner login"
+></app-banner>
+
+<app-form-base
+  [titulo]="tituloPerfil"
+  [nomeBotao]="nomeBotaoPerfil"
+  [meuPerfil]="true"
+  (submitClicado)="atualizar()"
+  (deslogarClicado)="deslogar()"
+></app-form-base>
