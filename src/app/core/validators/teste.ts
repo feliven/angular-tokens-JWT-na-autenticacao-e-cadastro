@@ -5,7 +5,7 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 
-export class Inimigo {
+export class ClasseInimigo {
   nome = '';
   poder = 0;
   saude = 0;
@@ -16,7 +16,7 @@ export class Inimigo {
     this.saude = saudeInimigo;
   }
 
-  atacar(inimigo: Inimigo) {
+  atacar(inimigo: ClasseInimigo) {
     if (this.saude <= 0) return;
 
     inimigo.saude -= this.poder;
@@ -34,8 +34,8 @@ export class Inimigo {
 }
 
 export function testeClasseInimigo() {
-  const monstro = new Inimigo('monstro', 9, 50);
-  const zumbi = new Inimigo('zumbi', 6, 20);
+  const monstro = new ClasseInimigo('monstro', 9, 50);
+  const zumbi = new ClasseInimigo('zumbi', 6, 20);
 
   while (monstro.saude > 0 && zumbi.saude > 0) {
     monstro.atacar(zumbi);
@@ -47,38 +47,32 @@ testeClasseInimigo();
 
 // experimentando factory
 
-type InimigoFn = {
+type Inimigo = {
   nome: string;
   poder: number;
   saude: number;
 };
 
-export function inimigoFactory() {
+export function inimigoFactory(
+  nomeInformado: string,
+  poderInformado: number,
+  saudeInformado: number,
+): Inimigo & { atacar(outroInimigo: Inimigo): void } {
   return {
-    criar(
-      nomeInformado: string,
-      poderInformado: number,
-      saudeInformado: number,
-    ) {
-      let inimigo: InimigoFn = {
-        nome: nomeInformado,
-        poder: poderInformado,
-        saude: saudeInformado,
-      };
+    nome: nomeInformado,
+    poder: poderInformado,
+    saude: saudeInformado,
 
-      return inimigo;
-    },
+    atacar(outroInimigo: Inimigo) {
+      if (this.saude <= 0) return;
 
-    atacar(esteInimigo: InimigoFn, outroInimigo: InimigoFn) {
-      if (esteInimigo.saude <= 0) return;
-
-      outroInimigo.saude -= esteInimigo.poder;
+      outroInimigo.saude -= this.poder;
 
       if (outroInimigo.saude < 0) {
         outroInimigo.saude = 0;
       }
 
-      console.log(esteInimigo.nome, 'atacou', outroInimigo.nome);
+      console.log(this.nome, 'atacou', outroInimigo.nome);
       console.log(
         outroInimigo.nome,
         'está com',
@@ -92,18 +86,54 @@ export function inimigoFactory() {
   };
 }
 
-let mago = inimigoFactory().criar('mago', 12, 50);
-let bruxa = inimigoFactory().criar('bruxa', 25, 20);
+let mago = inimigoFactory('mago', 12, 50);
+let bruxa = inimigoFactory('bruxa', 25, 20);
 
 while (mago.saude > 0 && bruxa.saude > 0) {
-  inimigoFactory().atacar(mago, bruxa);
-  inimigoFactory().atacar(bruxa, mago);
+  mago.atacar(bruxa);
+  bruxa.atacar(mago);
 }
+
+// Define the factory function for creating enemy objects
+function enemyFactory(
+  type: string,
+  health: number,
+  attackPower: number,
+  speed: number,
+) {
+  return {
+    type: type,
+    health: health,
+    attackPower: attackPower,
+    speed: speed,
+    attack() {
+      console.log(`${this.type} attacks with ${this.attackPower} power!`);
+    },
+    move() {
+      console.log(`${this.type} moves at a speed of ${this.speed}.`);
+    },
+  };
+}
+
+// Create different types of enemies using the factory function
+let goblin = enemyFactory('Goblin', 50, 10, 5);
+let skeleton = enemyFactory('Skeleton', 70, 15, 4);
+let troll = enemyFactory('Troll', 100, 20, 3);
+
+// Interact with the created enemies
+goblin.attack();
+skeleton.move();
+troll.attack();
+
+//Output
+// Goblin attacks with 10 power!
+// Skeleton moves at a speed of 4.
+// Troll attacks with 20 power!
 
 // com factory, função fica com sintaxe classe.funcao(variavel)(outravariavel)
 
 class CopiaFormValidations {
-  ehIgual(outroCampo: string): ValidatorFn {
+  conferirSeEIgual(outroCampo: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const valorCampo = control.value;
       const valorOutroCampo = control.root.get(outroCampo)?.value;
@@ -124,10 +154,11 @@ class CopiaFormValidations {
   }
 }
 
-const ctrl = new FormControl();
-const formval = new CopiaFormValidations();
+const variavel = 'teste';
+const outraVariavel = new FormControl();
+const validacao = new CopiaFormValidations();
 
-const validatorfn = formval.ehIgual('x');
+const funcaoValidacao = validacao.conferirSeEIgual(variavel);
 
-const validator = validatorfn(ctrl);
-const validator2 = formval.ehIgual('x')(ctrl);
+const respostaValidator = funcaoValidacao(outraVariavel);
+const respostaValidator2 = validacao.conferirSeEIgual(variavel)(outraVariavel);
