@@ -3,7 +3,7 @@
     <div class="form-container">
       <mat-card-header>
         @if (meuPerfil()) {
-          <a mat-stroked-button href="#" color="primary"
+          <a mat-stroked-button (click)="onDeslogar()" color="primary"
             ><mat-icon>logout</mat-icon>DESLOGAR</a
           >
         }

@@ -14,6 +14,9 @@ import { Router } from '@angular/router';
 })
 export class CadastroComponent {
   private formularioService = inject(FormularioService);
+  tituloCadastro = 'Crie sua conta';
+  nomeBotaoCadastro = 'Criar minha conta';
+
   formularioSalvo = new FormGroup({});
   private router = inject(Router);
 

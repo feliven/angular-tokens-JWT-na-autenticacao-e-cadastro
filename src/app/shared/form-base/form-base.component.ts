@@ -56,6 +56,7 @@ export class FormBaseComponent implements OnInit {
   nomeBotao = input('');
   meuPerfil = input(true);
   submitClicado = output<void>();
+  deslogarClicado = output<void>();
 
   formBase!: FormGroup;
   private formBuilder = inject(FormBuilder);
@@ -128,5 +129,9 @@ export class FormBaseComponent implements OnInit {
 
   onSubmit() {
     this.submitClicado.emit();
+  }
+
+  onDeslogar() {
+    this.deslogarClicado.emit();
   }
 }
