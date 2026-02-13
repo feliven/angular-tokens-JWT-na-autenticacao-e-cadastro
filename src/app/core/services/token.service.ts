@@ -26,7 +26,7 @@ export class TokenService {
     return localStorage.getItem(KEY) ?? '';
   }
 
-  consultaSePossuiToken() {
+  possuiToken() {
     return !!this.retornarToken();
   }
 }
