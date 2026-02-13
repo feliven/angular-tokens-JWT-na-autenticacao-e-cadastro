@@ -21,7 +21,9 @@ export class UserService {
 
   decodificarJWT(): void {
     const token = this.tokenService.retornarToken();
+    console.log('token JWT:', token);
     const usuario = jwtDecode(token) as CadastroForm;
+    console.log('usuário:', usuario);
     this.userSubject.next(usuario);
   }
 
