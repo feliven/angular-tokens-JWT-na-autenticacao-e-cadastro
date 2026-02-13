@@ -24,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { UnidadeFederativaService } from 'src/app/core/services/unidade-federativa.service';
 import { UnidadeFederativa } from 'src/app/core/types/type';
@@ -46,6 +47,7 @@ import { FormValidations } from 'src/app/core/validators/form-validators';
     MatIconModule,
     MatNativeDateModule,
     MatDividerModule,
+    MatCheckboxModule,
   ],
   templateUrl: './form-base.component.html',
   styleUrl: './form-base.component.scss',
@@ -56,6 +58,7 @@ export class FormBaseComponent implements OnInit {
   nomeBotao = input('');
   meuPerfil = input(true);
   submitClicado = output<void>();
+  editarClicado = output<void>();
   deslogarClicado = output<void>();
 
   formBase!: FormGroup;
@@ -106,6 +109,7 @@ export class FormBaseComponent implements OnInit {
           FormValidations.ehIgual('senha'),
         ],
       ],
+      aceitarTermos: [false, Validators.requiredTrue],
     });
 
     this.formularioService.setCadastro(this.formBase);
@@ -129,6 +133,10 @@ export class FormBaseComponent implements OnInit {
 
   onSubmit() {
     this.submitClicado.emit();
+  }
+
+  onEditar() {
+    this.editarClicado.emit();
   }
 
   onDeslogar() {
