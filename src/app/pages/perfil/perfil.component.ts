@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormularioService } from 'src/app/core/services/formulario.service';
+import { Router } from '@angular/router';
+import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { BannerComponent } from 'src/app/shared/banner/banner.component';
 import { FormBaseComponent } from 'src/app/shared/form-base/form-base.component';
@@ -14,7 +15,8 @@ export class PerfilComponent implements OnInit {
   tituloPerfil = 'Boas-vindas!';
   nomeBotaoPerfil = 'Atualizar perfil';
   private userService = inject(UserService);
-  private formularioService = inject(FormularioService);
+  private formularioService = inject(CadastroService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.recuperarDadosPerfil();
@@ -32,5 +34,6 @@ export class PerfilComponent implements OnInit {
 
   deslogar() {
     this.userService.logout();
+    this.router.navigate(['/']);
   }
 }

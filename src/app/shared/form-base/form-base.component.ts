@@ -29,7 +29,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UnidadeFederativaService } from 'src/app/core/services/unidade-federativa.service';
 import { UnidadeFederativa } from 'src/app/core/types/type';
 import { ContainerComponent } from '../container/container.component';
-import { FormularioService } from 'src/app/core/services/formulario.service';
+import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { FormValidations } from 'src/app/core/validators/form-validators';
 
 @Component({
@@ -64,7 +64,7 @@ export class FormBaseComponent implements OnInit {
   formBase!: FormGroup;
   private formBuilder = inject(FormBuilder);
   private ufService = inject(UnidadeFederativaService);
-  private formularioService = inject(FormularioService);
+  private formularioService = inject(CadastroService);
 
   generos = [
     { nome: 'Feminino', valor: 'feminino' },
@@ -111,6 +111,16 @@ export class FormBaseComponent implements OnInit {
       ],
       aceitarTermos: [false, Validators.requiredTrue],
     });
+
+    if (this.meuPerfil()) {
+      this.formBase.get('aceitarTermos')?.setValidators(null);
+    } else {
+      this.formBase
+        .get('aceitarTermos')
+        ?.setValidators([Validators.requiredTrue]);
+    }
+
+    this.formBase.get('aceitarTermos')?.updateValueAndValidity();
 
     this.formularioService.setCadastro(this.formBase);
 

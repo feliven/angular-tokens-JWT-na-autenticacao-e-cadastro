@@ -7,7 +7,7 @@ import { CadastroForm } from '../types/type';
 @Injectable({
   providedIn: 'root',
 })
-export class FormularioService {
+export class CadastroService {
   cadastroForm!: FormGroup;
   private enderecoAPI: string = environment.apiUrl;
   private http = inject(HttpClient);
