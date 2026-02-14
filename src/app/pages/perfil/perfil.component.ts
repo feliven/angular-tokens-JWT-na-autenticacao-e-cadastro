@@ -59,6 +59,23 @@ export class PerfilComponent implements OnInit, AfterViewInit {
       ...form?.getRawValue(),
     };
 
+    // const dadosAtualizados2: PessoaUsuaria = {
+    //   nome: form.value.nome,
+    //   nascimento: form.value.nascimento,
+    //   cpf: form.value.cpf,
+    //   telefone: form.value.telefone,
+    //   email: form.value.email,
+    //   senha: form.value.senha,
+    //   genero: form.value.genero,
+    //   cidade: form.value.cidade,
+    //   estado: form.value.estado,
+    // };
+
+    // console.log(
+    //   'dadosAtualizados === dadosAtualizados2:',
+    //   dadosAtualizados === dadosAtualizados2,
+    // );
+
     const token = this.tokenService.retornarToken();
 
     this.cadastroService.patchCadastro(dadosAtualizados, token).subscribe({
@@ -68,6 +85,10 @@ export class PerfilComponent implements OnInit, AfterViewInit {
       },
       error: (err) => console.error('Erro ao atualizar', err),
     });
+  }
+
+  editar() {
+    //
   }
 
   deslogar(): void {
@@ -87,7 +108,7 @@ export class PerfilComponent implements OnInit, AfterViewInit {
         // Mapeia e atualiza o formulário
         this.cadastroService.cadastroForm?.patchValue({
           nome: cadastro.nome,
-          dataNascimento: cadastro.nascimento,
+          nascimento: cadastro.nascimento,
           cpf: cadastro.cpf,
           telefone: cadastro.telefone,
           email: cadastro.email,
