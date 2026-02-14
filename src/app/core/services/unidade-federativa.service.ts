@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, shareReplay } from 'rxjs';
+import { Observable, shareReplay, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UnidadeFederativa } from '../types/type';
 
@@ -19,6 +19,22 @@ export class UnidadeFederativaService {
     }
 
     return this.cache$;
+  }
+
+  salvarEstados(
+    listaEstados: UnidadeFederativa[],
+  ): Observable<UnidadeFederativa[]> {
+    return this.listarEstados().pipe(
+      // Use an Observer object ({ next: ... }) instead of a bare function
+      tap({
+        next: (estados) => {
+          // estados.forEach((estado) => listaEstados.push(estado));
+
+          // Tip: You can also use the spread operator to push all items at once
+          listaEstados.push(...estados);
+        },
+      }),
+    );
   }
 
   private requestEstados(): Observable<UnidadeFederativa[]> {
