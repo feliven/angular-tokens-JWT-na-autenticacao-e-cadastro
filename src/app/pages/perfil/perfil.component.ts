@@ -55,26 +55,23 @@ export class PerfilComponent implements OnInit, AfterViewInit {
     if (form?.invalid) return;
 
     // Prepara o objeto manualmente para garantir dados atualizados
-    const dadosAtualizados: PessoaUsuaria = {
-      ...form?.getRawValue(),
-    };
-
-    // const dadosAtualizados2: PessoaUsuaria = {
-    //   nome: form.value.nome,
-    //   nascimento: form.value.nascimento,
-    //   cpf: form.value.cpf,
-    //   telefone: form.value.telefone,
-    //   email: form.value.email,
-    //   senha: form.value.senha,
-    //   genero: form.value.genero,
-    //   cidade: form.value.cidade,
-    //   estado: form.value.estado,
+    // const dadosAtualizados: PessoaUsuaria = {
+    //   ...form?.getRawValue(),
     // };
 
-    // console.log(
-    //   'dadosAtualizados === dadosAtualizados2:',
-    //   dadosAtualizados === dadosAtualizados2,
-    // );
+    const dadosAtualizados: PessoaUsuaria = {
+      nome: form.value.nome,
+      nascimento: form.value.nascimento,
+      cpf: form.value.cpf,
+      telefone: form.value.telefone,
+      email: form.value.email,
+      senha: form.value.senha,
+      genero: form.value.genero,
+      cidade: form.value.cidade,
+      estado: form.value.estado,
+    };
+
+    console.log('dadosAtualizados', dadosAtualizados);
 
     const token = this.tokenService.retornarToken();
 
