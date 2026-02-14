@@ -1,12 +1,24 @@
 <header class="app-header">
   <mat-toolbar>
-    <img src="assets/imagens/logo.png" alt="Logo da aplicação Jornada" />
+    <a routerLink="/">
+      <img src="assets/imagens/logo.png" alt="Logo da aplicação Jornada" />
+    </a>
+
     <span class="spacer"></span>
-    <button mat-button color="primary">Vender milhas</button>
-    <button mat-button color="primary">Sobre</button>
-    <button mat-raised-button color="primary" routerLink="/cadastro">
-      CADASTRE-SE
-    </button>
-    <button mat-raised-button routerLink="/login">LOGIN</button>
+    <div class="toolbar">
+      <button mat-button color="primary">Vender milhas</button>
+      <button mat-button color="primary">Sobre</button>
+      @if (usuario$ | async) {
+        <a routerLink="/perfil"
+          ><img src="/assets/icones/twitter.png" alt=""
+        /></a>
+        <button mat-raised-button (click)="sair()">SAIR</button>
+      } @else {
+        <button mat-raised-button color="primary" routerLink="/cadastro">
+          CADASTRE-SE
+        </button>
+        <button mat-raised-button routerLink="/login">LOGIN</button>
+      }
+    </div>
   </mat-toolbar>
 </header>

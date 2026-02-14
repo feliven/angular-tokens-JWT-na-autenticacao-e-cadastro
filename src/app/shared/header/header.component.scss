@@ -1,5 +1,4 @@
 .app-header {
-
   button {
     margin: 0 16px;
   }
@@ -12,10 +11,13 @@
     background-color: black;
     color: white;
     padding: 0 256px;
+
+    .toolbar {
+      display: flex;
+    }
   }
 
   .mat-mdc-outlined-button:not(:disabled) {
     border-color: white;
   }
 }
-
