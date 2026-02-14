@@ -18,6 +18,12 @@ export interface Depoimento {
   avatar: string;
 }
 
+export enum Genero {
+  MASCULINO = 'm',
+  FEMININO = 'f',
+  NAOINFORMAR = 'n',
+}
+
 export interface PessoaUsuaria {
   nome: string;
   nascimento: string;
@@ -25,7 +31,7 @@ export interface PessoaUsuaria {
   telefone: string;
   email: string;
   senha: string;
-  genero: string;
+  genero: Genero | null;
   cidade: string;
   estado: UnidadeFederativa;
 }
