@@ -27,7 +27,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { UnidadeFederativaService } from 'src/app/core/services/unidade-federativa.service';
-import { UnidadeFederativa } from 'src/app/core/types/type';
+import { Genero, UnidadeFederativa } from 'src/app/core/types/type';
 import { ContainerComponent } from '../container/container.component';
 import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { FormValidations } from 'src/app/core/validators/form-validators';
@@ -67,11 +67,11 @@ export class FormBaseComponent implements OnInit {
   private cadastroService = inject(CadastroService);
 
   generos = [
-    { nome: 'Feminino', valor: 'feminino' },
-    { nome: 'Masculino', valor: 'masculino' },
-    { nome: 'Não informar', valor: 'naoInformar' },
+    { nome: 'Feminino', valor: Genero.FEMININO }, // valor = 'f'
+    { nome: 'Masculino', valor: Genero.MASCULINO }, // valor = 'm'
+    { nome: 'Não informar', valor: Genero.NAOINFORMAR }, // valor = 'n'
   ];
-  generoControl = new FormControl(this.generos[0], Validators.required);
+  generoControl = new FormControl<string | null>(null, Validators.required);
 
   estadoControl = new FormControl<UnidadeFederativa | null>(
     null,
@@ -124,13 +124,14 @@ export class FormBaseComponent implements OnInit {
 
     this.cadastroService.setCadastro(this.formBase);
 
-    this.ufService.listarEstados().subscribe({
-      next: (estados) => {
-        estados.forEach((estado) => this.listaEstados.push(estado));
-        this.estadoControl.setValue(this.listaEstados[5]);
+    this.ufService.salvarEstados(this.listaEstados).subscribe({
+      next: () => {
+        if (this.listaEstados.length > 5) {
+          this.estadoControl.setValue(this.listaEstados[5]);
+        }
       },
       error: (erro) => {
-        console.error('Erro', erro);
+        console.error('Erro ao carregar estados', erro);
       },
     });
   }
