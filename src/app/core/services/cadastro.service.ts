@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { CadastroForm } from '../types/type';
+import { PessoaUsuaria } from '../types/type';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,7 @@ export class CadastroService {
   }
 
   postCadastro() {
-    const dadosCadastro: CadastroForm = {
+    const dadosCadastro: PessoaUsuaria = {
       nome: this.cadastroForm.get('nome')?.value,
       nascimento: this.cadastroForm
         .get('dataNascimento')
