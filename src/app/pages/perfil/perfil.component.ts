@@ -55,6 +55,7 @@ export class PerfilComponent implements OnInit, AfterViewInit {
     if (form?.invalid) return;
 
     // Prepara o objeto manualmente para garantir dados atualizados
+
     // const dadosAtualizados: PessoaUsuaria = {
     //   ...form?.getRawValue(),
     // };
@@ -73,9 +74,7 @@ export class PerfilComponent implements OnInit, AfterViewInit {
 
     console.log('dadosAtualizados', dadosAtualizados);
 
-    const token = this.tokenService.retornarToken();
-
-    this.cadastroService.patchCadastro(dadosAtualizados, token).subscribe({
+    this.cadastroService.patchCadastro(dadosAtualizados).subscribe({
       next: (cadastro) => {
         this.nome = cadastro.nome;
         console.log('Perfil atualizado com sucesso!');
@@ -94,9 +93,7 @@ export class PerfilComponent implements OnInit, AfterViewInit {
   }
 
   private carregarDadosParaForm() {
-    const token = this.tokenService.retornarToken();
-
-    this.cadastroService.getCadastro(token).subscribe({
+    this.cadastroService.getCadastro().subscribe({
       next: (cadastro) => {
         const estadoSelecionado = this.listaEstados.find(
           (estado) => estado.id === cadastro.estado.id,

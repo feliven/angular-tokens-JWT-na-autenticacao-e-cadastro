@@ -48,23 +48,15 @@ export class CadastroService implements AfterViewInit {
     });
   }
 
-  getCadastro(token: string) {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
+  getCadastro() {
     const endereco = this.enderecoAPI + '/auth/perfil';
 
-    return this.http.get<PessoaUsuaria>(endereco, { headers });
+    return this.http.get<PessoaUsuaria>(endereco);
   }
 
-  patchCadastro(usuario: PessoaUsuaria, token: string) {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
+  patchCadastro(usuario: PessoaUsuaria) {
     const endereco = this.enderecoAPI + '/auth/perfil';
 
-    return this.http.patch<PessoaUsuaria>(endereco, usuario, { headers });
+    return this.http.patch<PessoaUsuaria>(endereco, usuario);
   }
 }
