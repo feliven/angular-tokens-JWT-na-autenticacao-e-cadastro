@@ -4,12 +4,14 @@ import { jwtDecode } from 'jwt-decode';
 
 import { TokenService } from './token.service';
 import { PessoaUsuaria } from '../types/type';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private tokenService = inject(TokenService);
+  private router = inject(Router);
 
   private userSubject = new BehaviorSubject<PessoaUsuaria | null>(null);
 
@@ -43,5 +45,6 @@ export class UserService {
   logout(): void {
     this.tokenService.excluirToken();
     this.userSubject.next(null);
+    this.router.navigate(['/login']);
   }
 }

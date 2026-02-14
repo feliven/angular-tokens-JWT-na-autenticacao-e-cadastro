@@ -82,7 +82,6 @@ export class PerfilComponent implements AfterViewInit {
 
   deslogar(): void {
     this.userService.logout();
-    this.router.navigate(['/login']);
   }
 
   private carregarDadosParaForm() {
