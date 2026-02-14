@@ -10,7 +10,7 @@
         <mat-card-title>{{ titulo() }}</mat-card-title>
       </mat-card-header>
       <form [formGroup]="formBase">
-        <div>
+        <div class="linha-com-botao-editar">
           <h2>Dados pessoais</h2>
           @if (meuPerfil()) {
             <a mat-stroked-button (click)="onEditar()" color="primary"
@@ -170,7 +170,7 @@
           @if (meuPerfil()) {
             <mat-divider></mat-divider>
 
-            <div>
+            <div class="linha-com-botao-editar">
               <h2>Dados de acesso</h2>
               <a mat-stroked-button (click)="onEditar()" color="primary"
                 ><mat-icon>edit</mat-icon>Editar</a
@@ -280,14 +280,17 @@
               }
             </mat-form-field>
           </div>
-          <div class="linha-formulario">
-            <mat-checkbox
-              class=""
-              formControlName="aceitarTermos"
-              color="primary"
-              >Li e aceito os termos de uso.</mat-checkbox
-            >
-          </div>
+
+          @if (!meuPerfil()) {
+            <div class="linha-formulario">
+              <mat-checkbox
+                class=""
+                formControlName="aceitarTermos"
+                color="primary"
+                >Li e aceito os termos de uso.</mat-checkbox
+              >
+            </div>
+          }
         </mat-card-content>
         <mat-card-actions>
           <button

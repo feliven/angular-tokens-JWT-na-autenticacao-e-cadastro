@@ -54,6 +54,22 @@ mat-divider {
       }
     }
 
+    .linha-com-botao-editar {
+      width: $largura;
+      display: flex;
+      justify-self: center;
+
+      h2 {
+        display: flex;
+        gap: 25px;
+        width: $largura;
+      }
+
+      a {
+        width: 7rem;
+      }
+    }
+
     mat-card-content {
       width: $largura;
       display: flex;
