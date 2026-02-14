@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
     this.authService.autenticar(email, senha).subscribe({
       next: (valor) => {
         console.log('Login realizado com sucesso', valor);
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/perfil');
       },
       error: (erro) => {
         console.log('Erro no login', erro);

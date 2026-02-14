@@ -14,7 +14,7 @@ import { FormBaseComponent } from 'src/app/shared/form-base/form-base.component'
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.scss',
 })
-export class PerfilComponent implements OnInit, AfterViewInit {
+export class PerfilComponent implements AfterViewInit {
   nome = '';
   tituloPerfil = 'Boas-vindas, ';
   nomeBotaoPerfil = 'Atualizar perfil';
@@ -22,15 +22,8 @@ export class PerfilComponent implements OnInit, AfterViewInit {
 
   private userService = inject(UserService);
   private cadastroService = inject(CadastroService);
-  private tokenService = inject(TokenService);
   private ufService = inject(UnidadeFederativaService);
   private router = inject(Router);
-
-  ngOnInit(): void {
-    if (!this.userService.estaLogado()) {
-      this.deslogar();
-    }
-  }
 
   ngAfterViewInit(): void {
     // Carrega os dados apenas após a view (e o formBase) estarem prontos
