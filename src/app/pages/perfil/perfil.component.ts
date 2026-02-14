@@ -1,7 +1,11 @@
-import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  inject,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { CadastroService } from 'src/app/core/services/cadastro.service';
-import { TokenService } from 'src/app/core/services/token.service';
 import { UnidadeFederativaService } from 'src/app/core/services/unidade-federativa.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { PessoaUsuaria, UnidadeFederativa } from 'src/app/core/types/type';
@@ -23,7 +27,7 @@ export class PerfilComponent implements AfterViewInit {
   private userService = inject(UserService);
   private cadastroService = inject(CadastroService);
   private ufService = inject(UnidadeFederativaService);
-  private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   ngAfterViewInit(): void {
     // Carrega os dados apenas após a view (e o formBase) estarem prontos
@@ -107,6 +111,7 @@ export class PerfilComponent implements AfterViewInit {
         });
 
         this.nome = cadastro.nome;
+        this.cdr.detectChanges();
       },
       error: (err) => console.error('Erro ao carregar perfil', err),
     });
