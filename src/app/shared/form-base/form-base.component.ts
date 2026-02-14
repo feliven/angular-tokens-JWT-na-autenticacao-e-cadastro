@@ -64,7 +64,7 @@ export class FormBaseComponent implements OnInit {
   formBase!: FormGroup;
   private formBuilder = inject(FormBuilder);
   private ufService = inject(UnidadeFederativaService);
-  private formularioService = inject(CadastroService);
+  private cadastroService = inject(CadastroService);
 
   generos = [
     { nome: 'Feminino', valor: 'feminino' },
@@ -122,7 +122,7 @@ export class FormBaseComponent implements OnInit {
 
     this.formBase.get('aceitarTermos')?.updateValueAndValidity();
 
-    this.formularioService.setCadastro(this.formBase);
+    this.cadastroService.setCadastro(this.formBase);
 
     this.ufService.listarEstados().subscribe({
       next: (estados) => {

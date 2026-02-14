@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AfterViewInit, inject, Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { PessoaUsuaria } from '../types/type';
@@ -7,21 +7,14 @@ import { PessoaUsuaria } from '../types/type';
 @Injectable({
   providedIn: 'root',
 })
-export class CadastroService {
+export class CadastroService implements AfterViewInit {
   cadastroForm!: FormGroup;
+  dadosFormCadastro!: PessoaUsuaria;
   private enderecoAPI: string = environment.apiUrl;
   private http = inject(HttpClient);
 
-  getCadastro(): FormGroup {
-    return this.cadastroForm;
-  }
-
-  setCadastro(form: FormGroup): void {
-    this.cadastroForm = form;
-  }
-
-  postCadastro() {
-    const dadosCadastro: PessoaUsuaria = {
+  ngAfterViewInit(): void {
+    this.dadosFormCadastro = {
       nome: this.cadastroForm.get('nome')?.value,
       nascimento: this.cadastroForm
         .get('dataNascimento')
@@ -35,15 +28,43 @@ export class CadastroService {
       cidade: this.cadastroForm.get('cidade')?.value,
       estado: this.cadastroForm.get('estado')?.value,
     };
+  }
+
+  returnCadastro(): FormGroup {
+    return this.cadastroForm;
+  }
+
+  setCadastro(form: FormGroup): void {
+    this.cadastroForm = form;
+  }
+
+  postCadastro() {
+    const dadosCadastro: PessoaUsuaria = this.dadosFormCadastro;
 
     const endereco = this.enderecoAPI + '/auth/cadastro';
 
-    this.http.post(endereco, dadosCadastro).subscribe((res) => {
-      console.log('resposta da API para cadastro:', res);
+    this.http.post<PessoaUsuaria>(endereco, dadosCadastro).subscribe((res) => {
+      console.log('resposta da API para post no cadastro:', res);
     });
   }
 
-  patchCadastro() {
-    //
+  getCadastro(token: string) {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    const endereco = this.enderecoAPI + '/auth/perfil';
+
+    return this.http.get<PessoaUsuaria>(endereco, { headers });
+  }
+
+  patchCadastro(usuario: PessoaUsuaria, token: string) {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    const endereco = this.enderecoAPI + '/auth/perfil';
+
+    return this.http.patch<PessoaUsuaria>(endereco, usuario, { headers });
   }
 }

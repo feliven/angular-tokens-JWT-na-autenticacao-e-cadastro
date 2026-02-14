@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrl: './cadastro.component.scss',
 })
 export class CadastroComponent {
-  private formularioService = inject(CadastroService);
+  private cadastroService = inject(CadastroService);
   tituloCadastro = 'Crie sua conta';
   nomeBotaoCadastro = 'Criar minha conta';
 
@@ -23,9 +23,9 @@ export class CadastroComponent {
   constructor() {}
 
   cadastrar() {
-    const cadastroForm: FormGroup = this.formularioService.getCadastro();
-    this.formularioService.setCadastro(cadastroForm);
-    this.formularioService.postCadastro();
+    const cadastroForm: FormGroup = this.cadastroService.returnCadastro();
+    this.cadastroService.setCadastro(cadastroForm);
+    this.cadastroService.postCadastro();
     this.router.navigate(['/login']);
   }
 }
